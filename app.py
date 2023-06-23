@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
-
+import base64
 
 app = Flask(__name__)
 api = Api(app)
@@ -8,14 +8,13 @@ api = Api(app)
 class Segment(Resource):
     def post(self):
         postedData = request.get_json()
-        x = postedData["x"]
-        y = postedData["y"]
-        x = int(x)
-        y = int(y)
+        rg = postedData["rg"]
 
-        ret = x+y
+        image =  open("seg.jpg","rb")
+        seg_image = image.read()
+        en_seg_image = base64.b64encode(seg_image).decode()
         retMap = {
-            "Sum": ret,
+            "Image": en_seg_image,
             "Status Code" : 200
         }
         return jsonify(retMap)

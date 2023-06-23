@@ -14,8 +14,9 @@ class Segment(Resource):
         seg_image = image.read()
         en_seg_image = base64.b64encode(seg_image).decode()
         retMap = {
+            "Status Code" : 200,
             "Image": en_seg_image,
-            "Status Code" : 200
+            "Teeth": 30
         }
         return jsonify(retMap)
 
